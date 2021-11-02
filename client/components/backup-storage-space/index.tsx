@@ -53,7 +53,9 @@ const BackupStorageSpace: React.FC = () => {
 					<BackupStorageSpaceUpsell
 						usageLevel={ usageLevel }
 						bytesUsed={ bytesUsed as number }
-						href={ isJetpackCloud() ? `/pricing/backup/${ siteSlug }` : `/plans/${ siteSlug }` }
+						href={
+							isJetpackCloud() ? `/pricing/storage/${ siteSlug }` : `/plans/storage/${ siteSlug }`
+						}
 					/>
 				</>
 			) }
