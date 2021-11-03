@@ -3,6 +3,7 @@ import { createElement, createInterpolateElement } from '@wordpress/element';
 import { sprintf } from '@wordpress/i18n';
 import { useI18n } from '@wordpress/react-i18n';
 import * as React from 'react';
+import { convertPlatformName } from '../util';
 import ImportPlatformDetails from './platform-details';
 import ImportPreview from './preview';
 import './style.scss';
@@ -98,6 +99,7 @@ interface PropsWithoutUrl {
 }
 const ReadyStep: React.FunctionComponent< PropsWithoutUrl > = ( { platform } ) => {
 	const { __ } = useI18n();
+	const platformName = convertPlatformName( platform );
 
 	return (
 		<div className="import-layout__center">
@@ -111,7 +113,7 @@ const ReadyStep: React.FunctionComponent< PropsWithoutUrl > = ( { platform } ) =
 								'To move your existing %(platform)s hosted content to your newly created WordPress.com site, try our %(platform)s importer.'
 							),
 							{
-								platform,
+								platform: platformName,
 							}
 						) }
 					</SubTitle>

@@ -19,7 +19,7 @@ interface Props {
 
 const MOCK_DATA = {
 	website: 'https://openweb.com',
-	platform: 'Wix',
+	platform: 'wix',
 };
 
 const shouldHideBackBtn = ( stepName: string, isScanning = false ): boolean => {
