@@ -3,6 +3,17 @@ import { ROUTE_SET } from 'calypso/state/action-types';
 import path from '../reducer';
 
 describe( 'reducer', () => {
+	it( 'should set current, initial and previous to an empty object when ROUTE_SET action is triggered without query arguments', () => {
+		const state = path( undefined, {
+			type: ROUTE_SET,
+			query: {},
+		} );
+
+		expect( state.initial ).to.eql( {} );
+		expect( state.current ).to.eql( {} );
+		expect( state.previous ).to.eql( {} );
+	} );
+
 	it( 'should set the current and the initial query to the value of the query attribute of the ROUTE_SET action', () => {
 		const state = path( undefined, {
 			type: ROUTE_SET,
@@ -13,7 +24,7 @@ describe( 'reducer', () => {
 		expect( state.initial.lang ).to.equal( 'fr' );
 		expect( state.current.retry ).to.equal( 1 );
 		expect( state.current.lang ).to.equal( 'fr' );
-		expect( state.previous ).to.equal( false );
+		expect( state.previous ).to.eql( {} );
 	} );
 
 	it( 'should only update current query the second time a ROUTE_SET action is triggered', () => {
