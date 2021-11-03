@@ -97,8 +97,8 @@ export const setHrefLangLinks = ( context, next ) => {
 	}
 
 	const langCodes = [ 'x-default', 'en', ...config( 'magnificent_non_en_locales' ) ];
-	const hrefLangBlock = langCodes.map( ( hrefLang ) => {
-		let localeSlug = hrefLang;
+	const hrefLangBlock = langCodes.map( ( hreflang ) => {
+		let localeSlug = hreflang;
 
 		if ( localeSlug === 'x-default' ) {
 			localeSlug = config( 'i18n_default_locale_slug' );
@@ -107,7 +107,7 @@ export const setHrefLangLinks = ( context, next ) => {
 		const href = getLocalizedCanonicalUrl( context.res.req.originalUrl, localeSlug );
 		return {
 			rel: 'alternate',
-			hrefLang,
+			hreflang,
 			href,
 		};
 	} );

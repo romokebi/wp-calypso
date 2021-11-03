@@ -65,6 +65,22 @@ const prefixLocalizedUrlPath = (
 	return url;
 };
 
+const suffixLocalizedUrlPath = (
+	validLocales: Locale[] = [],
+	limitPathMatch: RegExp | null = null
+) => ( url: URL, localeSlug: Locale ): URL => {
+	if ( typeof limitPathMatch === 'object' && limitPathMatch instanceof RegExp ) {
+		if ( ! limitPathMatch.test( url.pathname ) ) {
+			return url; // No rewriting if not matches the path.
+		}
+	}
+
+	if ( validLocales.includes( localeSlug ) && localeSlug !== 'en' ) {
+		url.pathname = url.pathname + localeSlug;
+	}
+	return url;
+};
+
 type LinkLocalizer = ( url: URL, localeSlug: string, isLoggedIn: boolean ) => URL;
 
 interface UrlLocalizationMapping {
@@ -101,6 +117,9 @@ const urlLocalizationMapping: UrlLocalizationMapping = {
 			return url;
 		}
 		return prefixLocalizedUrlPath( magnificentNonEnLocales )( url, localeSlug );
+	},
+	'wordpress.com/log-in/': ( url: URL, localeSlug: Locale, isLoggedIn: boolean ) => {
+		return isLoggedIn ? url : suffixLocalizedUrlPath( magnificentNonEnLocales )( url, localeSlug );
 	},
 	'wordpress.com/theme/': ( url: URL, localeSlug: Locale, isLoggedIn: boolean ) => {
 		return isLoggedIn ? url : prefixLocalizedUrlPath( magnificentNonEnLocales )( url, localeSlug );
